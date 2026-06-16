@@ -1,0 +1,6 @@
+@Library(['gematik-jenkins-shared-library', 'demis-jenkins-shared-library']) _
+
+pipelineGitHubHelmChartPublish {
+    SERVICE_NAME = 'bulk-inbound-service'
+    HELM_PACKAGES = ['bulk-inbound-service','bulk-inbound-purger']
+}

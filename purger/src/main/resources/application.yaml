@@ -1,0 +1,22 @@
+spring:
+  config:
+    import: classpath:/base-config-application.yaml
+
+  jpa:
+    generate-ddl: false
+    hibernate:
+      ddl-auto: none
+    open-in-view: false
+
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: ${DB_URL}
+    username: ${DB_USER}
+
+    hikari:
+      minimum-idle: 1
+      maximum-pool-size: 1
+
+app:
+  purger:
+    retention-days: 14

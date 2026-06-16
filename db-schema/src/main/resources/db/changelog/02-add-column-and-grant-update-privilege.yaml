@@ -1,0 +1,22 @@
+databaseChangeLog:
+  - changeSet:
+      id: add-status-column
+      author: demis@gematik.de
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addColumn:
+            tableName: batch
+            columns:
+              - column:
+                  name: status
+                  type: tinyint
+                  defaultValueNumeric: "0"
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: db-user-update-permission-for-table-batch
+      author: demis@gematik.de
+      changes:
+        - sql:
+            sql: >
+              GRANT UPDATE ON TABLE batch TO "${db-user-service}";                 

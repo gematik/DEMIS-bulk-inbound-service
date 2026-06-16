@@ -1,0 +1,29 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: geheim
+
+  liquibase:
+    enabled: true
+    url: ${spring.datasource.url}
+    user: postgres
+    password: geheim
+    parameters:
+      db-user-service: ${spring.datasource.username}
+
+app:
+  hash:
+    pepper: "zF#8vR!pQ2$kd@M1^sL&hC*9wXe%tY?4"
+  encryption:
+    current-key: "ATW$pfXiW%O8%#ab"
+    previous-key: "ATW$pfXiW%O8%#ab"
+
+logging:
+  level:
+    de.gematik.demis.poc.mq: DEBUG
+#    org.springframework.amqp.rabbit.core.RabbitTemplate: DEBUG
+#    org.springframework.amqp.rabbit.listener: DEBUG
+    org:
+      hibernate:
+        SQL: DEBUG

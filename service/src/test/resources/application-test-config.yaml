@@ -1,0 +1,14 @@
+spring:
+  rabbitmq:
+    listener:
+      simple:
+        retry:
+          max-retries: 5
+          initial-interval: 20ms
+          multiplier: 1
+
+app:
+  hash:
+    pepper: "zF#8vR!pQ2$kd@M1^sL&hC*9wXe%tY?4"
+  encryption:
+    current-key: "1234567890abcdef"

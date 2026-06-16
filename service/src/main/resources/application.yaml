@@ -1,0 +1,74 @@
+info:
+  app:
+    name: '@project.name@'
+    version: '@project.version@'
+
+spring:
+  config:
+    import: classpath:/base-config-application.yaml
+  rabbitmq:
+    publisher-confirm-type: correlated
+    publisher-returns: true
+    host: ${SPRING_RABBITMQ_HOST:localhost}
+    port: ${SPRING_RABBITMQ_PORT:5672}
+    username: ${SPRING_RABBITMQ_USERNAME:rabbit_user}
+    password: ${SPRING_RABBITMQ_PASSWORD:rabbit_password}
+    virtual-host: ${SPRING_RABBITMQ_VIRTUAL_HOST:bulk}
+
+    listener:
+      simple:
+        concurrency: 5
+        prefetch: 1
+        retry:
+          enabled: true
+          stateless: true
+          max-retries: 5
+          initial-interval: 5s
+          multiplier: 5
+          max-interval: 5m
+        observation-enabled: true
+
+
+  jpa:
+    generate-ddl: false
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+
+  liquibase:
+    enabled: ${SPRING_LIQUIBASE_ENABLED:false}
+    change-log: classpath:db/changelog.yaml
+    url: ${DB_URL}
+    user: ${LIQUIBASE_DB_USER}
+    parameters:
+      db-user-service: ${DB_USER}
+      db-user-purger: ${PARAM_LIQUIBASE_DB_USER_PURGER:_UNDEFINED_}
+
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: ${DB_URL}
+    username: ${DB_USER}
+
+    hikari:
+      minimum-idle: 2
+      maximum-pool-size: 10
+
+app:
+  server-url: ${EXTERNAL_SERVER_URL:http://localhost:${server.port:8080}}
+  waf-url: ${DEMIS_NETWORK_WAF_SERVICE_ADDRESS:http://waf.dmz.svc.cluster.local:8080}
+  hash:
+    # is set via configtree import of mounted kubernetes secret.
+    # Secret is required and must be at least 32 bytes. Otherwise, service does not start.
+    pepper:
+  encryption:
+    # Current encryption key for new messages. Must be 16 bytes
+    current-key:
+    # Previous encryption key for decrypting old messages (rolling key rotation)
+    previous-key:
+
+base:
+  fhir:
+    enabled: true
+    error-as-operation-outcome: true
+    operation-outcome:
+      profile: "https://demis.rki.de/fhir/StructureDefinition/ProcessNotificationResponse"

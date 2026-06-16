@@ -1,0 +1,14 @@
+@Library(['gematik-jenkins-shared-library', 'demis-jenkins-shared-library']) _
+
+pipelineMultiModuleReleaseDEMIS {
+  DEFAULT_BRANCH_NAME = 'main'
+  GITLAB_PROJECT_ID = '2086'
+  BASE_IMAGE_NAME = 'bulk-inbound'
+  SUFFIX_NAMES = "service,purger"
+  VERSION_PATTERN = '^Bulk-Inbound-([0-9])\\.([0-9]){1,2}\\.([0-9]){1,2}$'
+  JIRA_PROJECT_ID = 'DEMIS'
+  JIRA_PROJECT_PREFIX = 'Bulk-Inbound'
+  JIRA_VERSION_DASH_POSITION = 2 // the Position of the dash symbol ("-") in JIRA string
+  JENKINS_AGENT= 'k8-backend-small'
+  JAVA_VERSION = 25
+}

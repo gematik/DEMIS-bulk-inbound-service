@@ -1,0 +1,8 @@
+@Library('gematik-jenkins-shared-library') _
+
+pipelineGitHubPull {
+    GITHUB_PROJECT_NAME = 'DEMIS-bulk-inbound-service'
+    GEMATIK_PROJECT_NAME = 'demis/services/bulk-inbound-service.git'
+    GITLAB_TARGET_BRANCH = 'main'
+    GITHUB_SOURCE_BRANCH = 'main'
+}

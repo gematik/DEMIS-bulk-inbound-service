@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/demis-bulk
+    username: ars-bulk-purger
+    password: Ru#&oe04YaJL&r
+
+logging:
+  level:
+    de.gematik.demis.bulk.inbound: DEBUG
+    org:
+      hibernate:
+        SQL: DEBUG
+#        orm.jdbc.bind: trace

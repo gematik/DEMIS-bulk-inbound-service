@@ -1,0 +1,15 @@
+@Library(['gematik-jenkins-shared-library', 'demis-jenkins-shared-library']) _
+
+pipelineMultiModuleCiDEMIS {
+  DEFAULT_BRANCH_NAME = 'main'
+  JIRA_PROJECT_ID = 'DEMIS'
+  VERSION_PATTERN = '^Bulk-Inbound-([0-9])\\.([0-9]){1,2}\\.([0-9]){1,2}$'
+  JIRA_VERSION_DASH_POSITION = 2
+  BASE_IMAGE_NAME = 'bulk-inbound'
+  SUFFIX_NAMES = "service,purger"
+  JENKINS_AGENT = 'k8-backend-small'
+  JAVA_VERSION = 25
+  DOCKER_REGISTRY_READER = 'svc_gcp_container_registry_json_secret_file'
+  DOCKER_REGISTRY_WRITER = 'svc_gcp_container_registry_json_secret_file'
+  GITLAB_PROJECT_ID = '2086'
+}

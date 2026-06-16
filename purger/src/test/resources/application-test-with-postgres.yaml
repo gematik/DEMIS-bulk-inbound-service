@@ -1,0 +1,23 @@
+logging:
+  level:
+    de.gematik.demis.storage: DEBUG
+    org.hibernate:
+      SQL: DEBUG
+      orm.jdbc.bind: trace
+
+spring:
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog.yaml
+    parameters:
+      db-user-service: ars-bulk-user
+      db-user-purger: ars-bulk-purger
+
+  datasource:
+    # db credentials muss match with values in db-init.sql
+    username: ars-bulk-purger
+    password: topSecret
+
+    hikari:
+      # for the concurrent test scenario we need 2 connections
+      maximum-pool-size: 2

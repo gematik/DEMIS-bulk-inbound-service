@@ -1,0 +1,70 @@
+vulnerabilities:
+  - id: CVE-2026-40200
+    expired_at: 2026-07-01
+    statement: musl, we do not sort arrays with that amount of data and its only 32-bit applicable
+  - id: CVE-2026-33180
+    expired_at: 2026-07-01
+    statement: HAPI Fhir Update needed
+  - id: CVE-2026-34359
+    expired_at: 2026-07-01
+    statement: HAPI Fhir Update needed
+  - id: CVE-2026-42198
+    statement: Not affected. We don't use the authentication method.
+  - id: CVE-2026-45367
+    expired_at: 2026-07-01
+    statement: HAPI Fhir Update needed
+  - id: CVE-2026-43869
+    expired_at: 2026-07-01
+    statement: libthrift update needed
+  - id: CVE-2026-41293
+    expired_at: 2026-07-01
+    statement: embed-tomcat, latest version of spring-boot does not contain the fix
+  - id: CVE-2026-43512
+    expired_at: 2026-07-01
+    statement: embed-tomcat, latest version of spring-boot does not contain the fix
+  - id: CVE-2026-43515
+    expired_at: 2026-07-01
+    statement: embed-tomcat, latest version of spring-boot does not contain the fix
+  - id: CVE-2026-41284
+    expired_at: 2026-07-01
+    statement: embed-tomcat, latest version of spring-boot does not contain the fix
+  - id: CVE-2026-42498
+    expired_at: 2026-07-01
+    statement: embed-tomcat, latest version of spring-boot does not contain the fix
+  - id: CVE-2026-43513
+    expired_at: 2026-07-01
+    statement: embed-tomcat, latest version of spring-boot does not contain the fix
+  - id: CVE-2026-44249
+    expired_at: 2026-08-01
+    statement: netty. We don't use a IPv6 subnet filter rules inside the services.
+  - id: CVE-2026-45416
+    expired_at: 2026-08-01
+    statement: netty-handler. Not affected
+  - id: CVE-2026-45447
+    statement: Not Affected. Base-Image CVE. We don't process PKCS#7 or S/MIME signed messages.
+misconfigurations:
+  - id: KSV011
+    statement: Runs with UID <= 10000 - User is 10000 in Dockerfile too
+  - id: KSV015
+    statement: Runs with UID <= 10000 - User is 10000 in Dockerfile too
+  - id: KSV016
+    statement: Runs with UID <= 10000 - User is 10000 in Dockerfile too
+  - id: KSV020
+    statement: Runs with UID <= 10000 - User is 10000 in Dockerfile too
+  - id: KSV021
+    statement: Runs with UID <= 10000 - User is 10000 in Dockerfile too
+  - id: KSV027
+    statement: Non-default /proc masks set - Not detected by Trivy
+  - id: KSV039
+    statement: limit range usage
+  - id: KSV040
+    statement: resource quota usage
+  - id: KSV110
+    statement: False Positive Namespace coming from stage-config
+# Ignore single packages is temporarily not supported from BaseImage
+licenses:
+  - id: GPL-2.0-only
+  - id: GPL-2.0-or-later
+  - id: LGPL-2.1-or-later
+  - id: MPL-2.0
+  - id: GPL-2.0-with-classpath-exception

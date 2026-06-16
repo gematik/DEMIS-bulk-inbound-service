@@ -1,0 +1,334 @@
+Licensed under the EUPL, Version 1.2 or - as soon they will be approved by the
+European Commission – subsequent versions of the EUPL (the "Licence").
+You may not use this work except in compliance with the Licence.
+
+You find a copy of the Licence in the "Licence" file or at
+https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the Licence is distributed on an "AS IS" basis,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either expressed or implied.
+In case of changes by gematik find details in the "Readme" file.
+
+See the Licence for the specific language governing permissions and limitations under the Licence.
+
+This project includes:
+  Angus Activation Registries under EDL 1.0
+  ANTLR 4 Runtime under BSD-3-Clause
+  Apache Commons Codec under Apache-2.0
+  Apache Commons Collections under Apache License, Version 2.0
+  Apache Commons Compress under Apache-2.0
+  Apache Commons CSV under Apache-2.0
+  Apache Commons FileUpload under Apache-2.0
+  Apache Commons IO under Apache-2.0
+  Apache Commons Lang under Apache-2.0
+  Apache Commons Logging under Apache-2.0
+  Apache Commons Net under Apache License, Version 2.0
+  Apache Commons Text under Apache-2.0
+  Apache HttpClient under Apache License, Version 2.0
+  Apache HttpComponents Core HTTP/1.1 under Apache License, Version 2.0
+  Apache HttpComponents Core HTTP/2 under Apache License, Version 2.0
+  Apache HttpCore under Apache License, Version 2.0
+  Apache Jena - ARQ under The Apache Software License, Version 2.0
+  Apache Jena - Base under The Apache Software License, Version 2.0
+  Apache Jena - Core under The Apache Software License, Version 2.0
+  Apache Jena - IRI under The Apache Software License, Version 2.0
+  Apache Jena - IRI3986 under The Apache Software License, Version 2.0
+  Apache Jena - Language tags under The Apache Software License, Version 2.0
+  Apache Jena - ShEx under The Apache Software License, Version 2.0
+  Apache Log4j API under Apache-2.0
+  Apache Thrift under The Apache Software License, Version 2.0
+  asm under BSD-3-Clause
+  ASM based accessors helper used by json-smart under The Apache Software License, Version 2.0
+  AspectJ Weaver under Eclipse Public License - v 2.0
+  AssertJ Core under Apache-2.0
+  Awaitility under Apache 2.0
+  Bouncy Castle Provider under Bouncy Castle Licence
+  bulk-inbound under Licensed under the EUPL 1.2
+  bulk-inbound-db-schema under Licensed under the EUPL 1.2
+  bulk-inbound-purger under Licensed under the EUPL 1.2
+  bulk-inbound-service under Licensed under the EUPL 1.2
+  Byte Buddy (without dependencies) under Apache License, Version 2.0
+  Byte Buddy agent under Apache License, Version 2.0
+  Caffeine cache under Apache License, Version 2.0
+  Checker Qual under The MIT License
+  ClassMate under Apache License, Version 2.0
+  context-propagation under The Apache Software License, Version 2.0
+  Core :: ALPN :: Client under EPL-2.0 or Apache-2.0
+  Core :: ALPN :: Java Client under EPL-2.0 or Apache-2.0
+  Core :: ALPN :: Java Server under EPL-2.0 or Apache-2.0
+  Core :: ALPN :: Server under EPL-2.0 or Apache-2.0
+  Core :: Compression :: Common under EPL-2.0 or Apache-2.0
+  Core :: Compression :: Gzip Support under EPL-2.0 or Apache-2.0
+  Core :: EE :: Web Application under EPL-2.0 or Apache-2.0
+  Core :: HTTP under EPL-2.0 or Apache-2.0
+  Core :: HTTP Client under EPL-2.0 or Apache-2.0
+  Core :: HTTP2 :: Common under EPL-2.0 or Apache-2.0
+  Core :: HTTP2 :: HPACK under EPL-2.0 or Apache-2.0
+  Core :: HTTP2 :: Server under EPL-2.0 or Apache-2.0
+  Core :: IO under EPL-2.0 or Apache-2.0
+  Core :: Proxy under EPL-2.0 or Apache-2.0
+  Core :: Security under EPL-2.0 or Apache-2.0
+  Core :: Server under EPL-2.0 or Apache-2.0
+  Core :: Sessions under EPL-2.0 or Apache-2.0
+  Core :: Utilities under EPL-2.0 or Apache-2.0
+  Core :: XML under EPL-2.0 or Apache-2.0
+  dexx under MIT License
+  docker-java-api under The Apache Software License, Version 2.0
+  docker-java-transport under The Apache Software License, Version 2.0
+  docker-java-transport-zerodep under The Apache Software License, Version 2.0
+  Duct Tape under MIT
+  EE10 :: Servlet under Eclipse Public License - Version 2.0 or Apache Software License - Version 2.0
+  EE10 :: Utility Servlets and Filters under Eclipse Public License - Version 2.0 or Apache Software License - Version 2.0
+  EE10 :: WebApp under EPL-2.0 or Apache-2.0
+  error-prone annotations under Apache 2.0
+  Feign Core under The Apache Software License, Version 2.0
+  Feign Forms Core under The Apache Software License, Version 2.0
+  Feign Forms Extension for Spring under The Apache Software License, Version 2.0
+  Feign Micrometer under The Apache Software License, Version 2.0
+  Feign SLF4J under The Apache Software License, Version 2.0
+  fhir-parser-library under EUPL-1.2
+  FindBugs-jsr305 under The Apache Software License, Version 2.0
+  Gson under Apache-2.0
+  Guava InternalFutureFailureAccess and InternalFutures under The Apache Software License, Version 2.0
+  Guava ListenableFuture only under The Apache Software License, Version 2.0
+  Guava: Google Core Libraries for Java under Apache License, Version 2.0
+  Hamcrest under BSD-3-Clause
+  Hamcrest Core under BSD-3-Clause
+  Handlebars under The Apache Software License, Version 2.0
+  Handlebars Helpers under The Apache Software License, Version 2.0
+  HAPI FHIR - Core Library under Apache Software License 2.0
+  HAPI FHIR - ServiceLoaders - Caching API under Apache Software License 2.0
+  HAPI FHIR Structures - FHIR R4 under Apache Software License 2.0
+  HdrHistogram under Public Domain, per Creative Commons CC0 or BSD-2-Clause
+  Hibernate Models under Apache License Version 2.0
+  Hibernate ORM - hibernate-core under Apache License, Version 2.0
+  Hibernate Validator Engine under Apache License 2.0
+  HikariCP under The Apache Software License, Version 2.0
+  HL7 Core Artifact - R4 under Apache Software License 2.0
+  HL7 Core Artifact - Utilities under Apache Software License 2.0
+  ICU4J under Unicode-3.0
+  Internet Time Utility under Apache License, Version 2.0
+  istack common utility code runtime under Eclipse Distribution License - v 1.0
+  J2ObjC Annotations under Apache License, Version 2.0
+  Jackson datatype: JSR310 under The Apache Software License, Version 2.0
+  Jackson-annotations under The Apache Software License, Version 2.0
+  Jackson-core under The Apache Software License, Version 2.0
+  jackson-databind under The Apache Software License, Version 2.0
+  Jackson-dataformat-YAML under The Apache Software License, Version 2.0
+  Jakarta Activation API under EDL 1.0
+  Jakarta Annotations API under EPL 2.0 or GPL2 w/ CPE
+  Jakarta Dependency Injection under The Apache Software License, Version 2.0
+  Jakarta Persistence API under Eclipse Public License v. 2.0 or Eclipse Distribution License v. 1.0
+  Jakarta Servlet under EPL 2.0 or GPL2 w/ CPE
+  Jakarta Validation API under Apache License 2.0
+  Jakarta XML Binding API under Eclipse Distribution License - v 1.0
+  jakarta.transaction API under EPL 2.0 or GPL2 w/ CPE
+  Java Native Access under LGPL-2.1-or-later or Apache-2.0
+  javax.inject under The Apache Software License, Version 2.0
+  JAXB Core under Eclipse Distribution License - v 1.0
+  JAXB Runtime under Eclipse Distribution License - v 1.0
+  JBoss Logging 3 under Apache License 2.0
+  JCL 1.2 implemented over SLF4J under Apache-2.0
+  JetBrains Java Annotations under The Apache Software License, Version 2.0
+  JOpt Simple under The MIT License
+  JSON library from Android SDK under Apache License 2.0
+  JSON Small and Fast Parser under The Apache Software License, Version 2.0
+  JSON-P Default Provider under Eclipse Public License 2.0 or GNU General Public License, version 2 with the GNU Classpath Exception
+  json-path under The Apache Software License, Version 2.0
+  json-unit-core under The Apache Software License, Version 2.0
+  JSONassert under The Apache Software License, Version 2.0
+  JsonSchemaValidator under Apache License Version 2.0
+  JSpecify annotations under The Apache License, Version 2.0
+  JUL to SLF4J bridge under MIT
+  JUnit Jupiter (Aggregator) under Eclipse Public License v2.0
+  JUnit Jupiter API under Eclipse Public License v2.0
+  JUnit Jupiter Engine under Eclipse Public License v2.0
+  JUnit Jupiter Params under Eclipse Public License v2.0
+  JUnit Platform Commons under Eclipse Public License v2.0
+  JUnit Platform Engine API under Eclipse Public License v2.0
+  Kotlin Stdlib under Apache-2.0
+  LatencyUtils under Public Domain, per Creative Commons CC0
+  Liquibase under FSL-1.1-ALv2
+  Log4j API to SLF4J Adapter under Apache-2.0
+  Logback Classic Module under Eclipse Public License - v 2.0 or GNU Lesser General Public License
+  Logback Core Module under Eclipse Public License - v 2.0 or GNU Lesser General Public License
+  Logstash Logback Encoder under Apache License, Version 2.0 or MIT License
+  Maven Artifact under Apache-2.0
+  Maven Artifact Resolver API under Apache-2.0
+  Maven Artifact Resolver Connector Basic under Apache-2.0
+  Maven Artifact Resolver Implementation under Apache-2.0
+  Maven Artifact Resolver Named Locks under Apache-2.0
+  Maven Artifact Resolver Provider under Apache-2.0
+  Maven Artifact Resolver SPI under Apache-2.0
+  Maven Artifact Resolver Transport HTTP under Apache-2.0
+  Maven Artifact Resolver Utilities under Apache-2.0
+  Maven Builder Support under Apache-2.0
+  Maven Model under Apache-2.0
+  Maven Model Builder under Apache-2.0
+  Maven Repository Metadata Model under Apache-2.0
+  micrometer-commons under The Apache Software License, Version 2.0
+  micrometer-core under The Apache Software License, Version 2.0
+  micrometer-jakarta9 under The Apache Software License, Version 2.0
+  micrometer-observation under The Apache Software License, Version 2.0
+  micrometer-observation-test under The Apache Software License, Version 2.0
+  micrometer-registry-prometheus under The Apache Software License, Version 2.0
+  micrometer-tracing under The Apache Software License, Version 2.0
+  micrometer-tracing-bridge-otel under The Apache Software License, Version 2.0
+  mockito-core under MIT
+  mockito-junit-jupiter under MIT
+  Netty/Buffer under Apache License, Version 2.0
+  Netty/Codec under Apache License, Version 2.0
+  Netty/Codec/Base under Apache License, Version 2.0
+  Netty/Codec/Compression under Apache License, Version 2.0
+  Netty/Codec/Marshalling under Apache License, Version 2.0
+  Netty/Codec/Protobuf under Apache License, Version 2.0
+  Netty/Common under Apache License, Version 2.0
+  Netty/Handler under Apache License, Version 2.0
+  Netty/Resolver under Apache License, Version 2.0
+  Netty/Transport under Apache License, Version 2.0
+  Netty/Transport/Native/Unix/Common under Apache License, Version 2.0
+  Objenesis under Apache License, Version 2.0
+  okhttp under The Apache Software License, Version 2.0
+  okio under The Apache Software License, Version 2.0
+  opencsv under Apache 2
+  OpenTelemetry Instrumentation for Java under The Apache License, Version 2.0
+  OpenTelemetry Java under The Apache License, Version 2.0
+  OpenTelemetry Semantic Conventions Java under The Apache License, Version 2.0
+  org.apiguardian:apiguardian-api under The Apache License, Version 2.0
+  org.eclipse.sisu:org.eclipse.sisu.inject under Eclipse Public License, Version 2.0
+  org.opentest4j:opentest4j under The Apache License, Version 2.0
+  org.roaringbitmap:RoaringBitmap under Apache 2
+  org.xmlunit:xmlunit-core under The Apache Software License, Version 2.0
+  org.xmlunit:xmlunit-legacy under The BSD 3-Clause License
+  org.xmlunit:xmlunit-placeholders under The Apache Software License, Version 2.0
+  Plexus Common Utilities under Apache License, Version 2.0
+  Plexus Interpolation API under Apache-2.0
+  PostgreSQL JDBC Driver under BSD-2-Clause
+  Project Lombok under The MIT License
+  Prometheus Metrics Config under The Apache Software License, Version 2.0
+  Prometheus Metrics Core under The Apache Software License, Version 2.0
+  Prometheus Metrics Exposition Formats under The Apache Software License, Version 2.0
+  Prometheus Metrics Exposition Text Formats under The Apache Software License, Version 2.0
+  Prometheus Metrics Model under The Apache Software License, Version 2.0
+  Prometheus Metrics Tracer Common under The Apache Software License, Version 2.0
+  Protocol Buffers [Core] under BSD-3-Clause
+  RabbitMQ Java Client under AL 2.0 or GPL v2 or MPL 2.0
+  Saxon-HE under Mozilla Public License Version 2.0
+  service-base under EUPL-1.2
+  SLF4J API Module under MIT
+  SnakeYAML under Apache License, Version 2.0
+  Spring AMQP Core under Apache License, Version 2.0
+  Spring AOP under Apache License, Version 2.0
+  Spring Aspects under Apache License, Version 2.0
+  Spring Beans under Apache License, Version 2.0
+  Spring Cloud Commons under Apache License, Version 2.0
+  Spring Cloud Context under Apache License, Version 2.0
+  Spring Cloud OpenFeign Core under Apache License, Version 2.0
+  Spring Cloud Starter OpenFeign under Apache License, Version 2.0
+  Spring Context under Apache License, Version 2.0
+  Spring Core under Apache License, Version 2.0
+  Spring Data Core under Apache License, Version 2.0
+  Spring Data JPA under Apache License, Version 2.0
+  Spring Expression Language (SpEL) under Apache License, Version 2.0
+  Spring JDBC under Apache License, Version 2.0
+  Spring Messaging under Apache License, Version 2.0
+  Spring Object/Relational Mapping under Apache License, Version 2.0
+  Spring RabbitMQ Support under Apache License, Version 2.0
+  Spring TestContext Framework under Apache License, Version 2.0
+  Spring Transaction under Apache License, Version 2.0
+  Spring Web under Apache License, Version 2.0
+  Spring Web MVC under Apache License, Version 2.0
+  spring-boot under Apache License, Version 2.0
+  spring-boot-actuator under Apache License, Version 2.0
+  spring-boot-actuator-autoconfigure under Apache License, Version 2.0
+  spring-boot-amqp under Apache License, Version 2.0
+  spring-boot-autoconfigure under Apache License, Version 2.0
+  spring-boot-configuration-metadata under Apache License, Version 2.0
+  spring-boot-data-commons under Apache License, Version 2.0
+  spring-boot-data-jpa under Apache License, Version 2.0
+  spring-boot-data-jpa-test under Apache License, Version 2.0
+  spring-boot-health under Apache License, Version 2.0
+  spring-boot-hibernate under Apache License, Version 2.0
+  spring-boot-http-client under Apache License, Version 2.0
+  spring-boot-http-converter under Apache License, Version 2.0
+  spring-boot-jackson under Apache License, Version 2.0
+  spring-boot-jdbc under Apache License, Version 2.0
+  spring-boot-jdbc-test under Apache License, Version 2.0
+  spring-boot-jpa under Apache License, Version 2.0
+  spring-boot-jpa-test under Apache License, Version 2.0
+  spring-boot-liquibase under Apache License, Version 2.0
+  spring-boot-micrometer-metrics under Apache License, Version 2.0
+  spring-boot-micrometer-metrics-test under Apache License, Version 2.0
+  spring-boot-micrometer-observation under Apache License, Version 2.0
+  spring-boot-micrometer-tracing under Apache License, Version 2.0
+  spring-boot-micrometer-tracing-opentelemetry under Apache License, Version 2.0
+  spring-boot-micrometer-tracing-test under Apache License, Version 2.0
+  spring-boot-opentelemetry under Apache License, Version 2.0
+  spring-boot-persistence under Apache License, Version 2.0
+  spring-boot-properties-migrator under Apache License, Version 2.0
+  spring-boot-restclient under Apache License, Version 2.0
+  spring-boot-resttestclient under Apache License, Version 2.0
+  spring-boot-servlet under Apache License, Version 2.0
+  spring-boot-sql under Apache License, Version 2.0
+  spring-boot-starter under Apache License, Version 2.0
+  spring-boot-starter-actuator under Apache License, Version 2.0
+  spring-boot-starter-amqp under Apache License, Version 2.0
+  spring-boot-starter-aspectj under Apache License, Version 2.0
+  spring-boot-starter-data-jpa under Apache License, Version 2.0
+  spring-boot-starter-data-jpa-test under Apache License, Version 2.0
+  spring-boot-starter-jackson under Apache License, Version 2.0
+  spring-boot-starter-jackson-test under Apache License, Version 2.0
+  spring-boot-starter-jdbc under Apache License, Version 2.0
+  spring-boot-starter-jdbc-test under Apache License, Version 2.0
+  spring-boot-starter-liquibase under Apache License, Version 2.0
+  spring-boot-starter-logging under Apache License, Version 2.0
+  spring-boot-starter-micrometer-metrics under Apache License, Version 2.0
+  spring-boot-starter-opentelemetry under Apache License, Version 2.0
+  spring-boot-starter-test under Apache License, Version 2.0
+  spring-boot-starter-tomcat under Apache License, Version 2.0
+  spring-boot-starter-tomcat-runtime under Apache License, Version 2.0
+  spring-boot-starter-validation under Apache License, Version 2.0
+  spring-boot-starter-webmvc under Apache License, Version 2.0
+  spring-boot-starter-webmvc-test under Apache License, Version 2.0
+  spring-boot-test under Apache License, Version 2.0
+  spring-boot-test-autoconfigure under Apache License, Version 2.0
+  spring-boot-testcontainers under Apache License, Version 2.0
+  spring-boot-tomcat under Apache License, Version 2.0
+  spring-boot-transaction under Apache License, Version 2.0
+  spring-boot-validation under Apache License, Version 2.0
+  spring-boot-web-server under Apache License, Version 2.0
+  spring-boot-webmvc under Apache License, Version 2.0
+  spring-boot-webmvc-test under Apache License, Version 2.0
+  spring-cloud-contract-wiremock under Apache License, Version 2.0
+  spring-cloud-starter under Apache License, Version 2.0
+  spring-cloud-test-support under Apache License, Version 2.0
+  spring-parent under EUPL-1.2
+  spring-security-crypto under Apache License, Version 2.0
+  springdoc-openapi-starter-common under The Apache License, Version 2.0
+  springdoc-openapi-starter-webmvc-api under The Apache License, Version 2.0
+  springdoc-openapi-starter-webmvc-ui under The Apache License, Version 2.0
+  Swagger UI under Apache-2.0
+  swagger-annotations-jakarta under Apache License 2.0
+  swagger-core-jakarta under Apache License 2.0
+  swagger-models-jakarta under Apache License 2.0
+  Testcontainers :: Database-Commons under MIT
+  Testcontainers :: JDBC under MIT
+  Testcontainers :: JDBC :: PostgreSQL under MIT
+  Testcontainers :: JUnit Jupiter Extension under MIT
+  Testcontainers :: RabbitMQ under MIT
+  Testcontainers Core under MIT
+  Titanium JCS under Apache License, Version 2.0
+  Titanium JSON-LD 1.1 (JRE11) under Apache License, Version 2.0
+  Titanium RDF API under Apache License, Version 2.0
+  Titanium RDF N-QUADS under Apache License, Version 2.0
+  tomcat-embed-core under Apache License, Version 2.0
+  tomcat-embed-el under Apache License, Version 2.0
+  tomcat-embed-websocket under Apache License, Version 2.0
+  TXW2 Runtime under Eclipse Distribution License - v 1.0
+  webjars-locator-lite under MIT
+  WireMock under The Apache Software License, Version 2.0
+  wiremock-spring-boot under The Apache Software License, Version 2.0
+  XML Resolver under Apache License version 2.0
+
+

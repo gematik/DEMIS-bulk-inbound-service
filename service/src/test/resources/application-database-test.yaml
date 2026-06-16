@@ -1,0 +1,9 @@
+spring:
+  liquibase:
+    enabled: true
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG

@@ -1,0 +1,7 @@
+@Library('gematik-jenkins-shared-library') _
+
+pipelineGitHubPublishGhPages {
+    GITHUB_PROJECT_NAME = 'DEMIS-bulk-inbound-service'
+    GEMATIK_PROJECT_NAME = 'demis/services/bulk-inbound-service.git'
+    REMOTE_BRANCH = 'gh-pages'
+}
