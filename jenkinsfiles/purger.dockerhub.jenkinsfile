@@ -1,0 +1,11 @@
+@Library('gematik-jenkins-shared-library') _
+
+pipelineDockerHubPublish {
+    INTERNAL_IMAGE_NAME = "demis-qs/bulk-inbound-purger"
+    EXTERNAL_IMAGE_NAME = "gematik1/demis-bulk-inbound-purger"
+    PUBLISH_README_ON_DOCKERHUB = true
+    ENABLE_DOCKER_IMAGE_SIGNATURE = true
+    DOCKER_SIGNATURE_TYPE = 'OIDC-GOOGLE'
+    DOCKER_INTERNAL_REGISTRY = 'europe-west3-docker.pkg.dev/gematik-all-infra-prod'
+    DOCKER_INTERNAL_CREDENTIALS = 'sa-image-signature-demis@gematik-all-infra-prod.iam.gserviceaccount.com'
+}

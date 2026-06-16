@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.3.xsd">
+  <suppress until="2026-06-01">
+    <notes><![CDATA[
+    file name: org.hl7.fhir.r4-6.6.7.jar
+    ]]></notes>
+    <packageUrl regex="true">^pkg:maven/ca\.uhn\.hapi\.fhir/org\.hl7\.fhir\..*$</packageUrl>
+    <vulnerabilityName>CVE-2026-33180</vulnerabilityName>
+  </suppress>
+  <suppress>
+    <notes><![CDATA[
+   file name: opentelemetry-semconv-1.37.0.jar
+   The CVEs are for the go-packages of opentelemetry. We use the Java packages
+   ]]></notes>
+    <packageUrl regex="true">^pkg:maven/io\.opentelemetry\.semconv/opentelemetry-semconv@.*$</packageUrl>
+    <cve>CVE-2026-29181</cve>
+    <cve>CVE-2026-39882</cve>
+    <cve>CVE-2026-39883</cve>
+  </suppress>
+  <suppress until="2026-06-01">
+    <notes><![CDATA[
+   file name: org.hl7.fhir.utilities-6.6.7.jar
+   ]]></notes>
+    <packageUrl regex="true">^pkg:maven/ca\.uhn\.hapi\.fhir/org\.hl7\.fhir\.utilities@.*$</packageUrl>
+    <vulnerabilityName>CVE-2026-34359</vulnerabilityName>
+  </suppress>
+  <suppress>
+     <notes><![CDATA[
+     libthrift from HAPI FHIR. Not Affected
+     ]]></notes>
+     <cve>CVE-2026-41636</cve>
+     <cve>CVE-2026-41604</cve>
+     <cve>CVE-2025-48431</cve>
+     <cve>CVE-2026-41602</cve>
+     <cve>CVE-2026-41603</cve>
+    <cve>CVE-2026-41605</cve>
+    <cve>CVE-2026-41607</cve>
+    <cve>CVE-2026-41606</cve>
+  </suppress>
+  <suppress>
+     <notes><![CDATA[
+     log4j from Spring-Boot. Only log4j is affected. But Spring uses logback as default and log4j-api. False Positive
+     ]]></notes>
+     <cve>CVE-2026-34478</cve>
+     <cve>CVE-2026-34480</cve>
+     <cve>CVE-2026-34481</cve>
+     <cve>CVE-2025-68161</cve>
+  </suppress>
+</suppressions>

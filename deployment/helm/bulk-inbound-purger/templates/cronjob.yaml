@@ -1,0 +1,96 @@
+{{/* Check required values and define variables */}}
+{{- $dockerRepository := .Values.required.image.repository | required ".Values.required.image.repository is required." -}}
+{{- $dockerImage := .Values.required.image.name | required ".Values.required.image.name is required." -}}
+{{- $dockerTag := .Values.required.image.tag | default .Chart.AppVersion -}}
+{{- $entrypointString := toString .Values.application.entrypoint | trimPrefix "[" | trimSuffix "]" -}}
+{{- $cmdParamsString := toString .Values.application.parameters | trimPrefix "[" | trimSuffix "]" -}}
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ include "bulk-inbound-purger.fullversionname" . }}
+  labels:
+    {{- include "bulk-inbound-purger.labels" . | nindent 4 }}
+    {{- with .Values.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+spec:
+  successfulJobsHistoryLimit: 2
+  failedJobsHistoryLimit: 3
+  schedule: {{ .Values.cronJobSchedule | required ".Values.cronJobSchedule is required." }}
+  suspend: {{ .Values.required.suspend | required ".Values.required.suspend is required." }}
+  # Replaces the currently running job run with a new job run
+  concurrencyPolicy: Replace
+  jobTemplate:
+    spec:
+      backoffLimit: 3
+      template:
+        metadata:
+          labels:
+            {{- include "bulk-inbound-purger.labels" . | nindent 12 }}
+          {{- with .Values.podAnnotations }}
+          annotations:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+        spec:
+          restartPolicy: OnFailure
+          volumes:
+            - name: tmp-volume
+              emptyDir: {}
+          {{- if .Values.debug.enable }}
+            - name: jfr-volume
+              emptyDir: {}
+          {{- end }}
+            - name: secret-volume
+              secret:
+                secretName: {{ .Values.secret.name }}
+                items:
+                  - key: {{ .Values.secret.key }}
+                    path: {{ .Values.secret.propPath }}
+          {{- with .Values.imagePullSecrets }}
+          imagePullSecrets:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          serviceAccountName: {{ include "bulk-inbound-purger.serviceAccountName" . }}
+          securityContext:
+            {{- toYaml .Values.podSecurityContext | nindent 12 }}
+          containers:
+          - name: "{{ .Chart.Name }}"
+            securityContext:
+              {{- toYaml .Values.securityContext | nindent 14 }}
+            image: "{{ $dockerRepository }}/{{ $dockerImage }}:{{ $dockerTag }}"
+            imagePullPolicy: {{ .Values.imagePullPolicy }}
+            {{- /* Configure entrypoint and parameters */ -}}
+            {{- with .Values.application.entrypoint }}
+            command:
+              {{- toYaml . | nindent 14 }}
+            {{- end }}
+            {{- with .Values.application.parameters }}
+            args:
+              {{- toYaml . | nindent 14 }}
+            {{- end }}
+            volumeMounts:
+            - name: tmp-volume
+              mountPath: /tmp
+            {{- if .Values.debug.enable }}
+            - name: jfr-volume
+              mountPath: /jfrdump
+            {{- end }}
+            - name: secret-volume
+              readOnly: true
+              mountPath: "/secrets/dbPassword"
+            # Set the Environment Variables for the container
+            env:
+              {{- include "bulk-inbound-purger.env" . | nindent 14 }}
+            {{- if .Values.debug.enable }}
+            # Define Debug Port
+            ports:
+              - name: debug-port
+                containerPort: 9000
+                protocol: TCP
+            {{- end }}
+            {{- with .Values.resources }}
+            # Define Limits and Requested Resources (CPU/RAM)
+            resources:
+              {{- toYaml . | nindent 14 }}
+            {{- end }}

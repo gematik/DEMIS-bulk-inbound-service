@@ -1,0 +1,41 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-batch-table
+      author: demis@gematik.de
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            tableName: batch
+            columns:
+              - column:
+                  name: batch_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_batch
+              - column:
+                  name: hashed_user_id
+                  type: bytea
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: TIMESTAMPTZ
+                  defaultValueComputed: now()
+                  constraints:
+                    nullable: false
+              - column:
+                  name: number_of_notifications
+                  type: integer
+                  defaultValue: 0
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: db-user-permission-for-table-batch
+      author: demis@gematik.de
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - sql:
+            sql: >
+              GRANT SELECT, INSERT ON TABLE batch TO "${db-user-service}";

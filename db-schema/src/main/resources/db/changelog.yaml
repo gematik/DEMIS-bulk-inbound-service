@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - include:
+      file: classpath:db/changelog/01-batch-initial.yaml
+  - include:
+      file: classpath:db/changelog/02-add-column-and-grant-update-privilege.yaml
+  - include:
+      file: classpath:db/changelog/03-purger-permission.yaml

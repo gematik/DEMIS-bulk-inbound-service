@@ -1,0 +1,63 @@
+package de.gematik.demis.bulk.inbound.purger;
+
+/*-
+ * #%L
+ * bulk-inbound-purger
+ * %%
+ * Copyright (C) 2025 - 2026 gematik GmbH
+ * %%
+ * Licensed under the EUPL, Version 1.2 or - as soon they will be approved by the
+ * European Commission – subsequent versions of the EUPL (the "Licence").
+ * You may not use this work except in compliance with the Licence.
+ *
+ * You find a copy of the Licence in the "Licence" file or at
+ * https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the Licence is distributed on an "AS IS" basis,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either expressed or implied.
+ * In case of changes by gematik find details in the "Readme" file.
+ *
+ * See the Licence for the specific language governing permissions and limitations under the Licence.
+ *
+ * *******
+ *
+ * For additional notes and disclaimer from gematik and in case of changes by gematik,
+ * find details in the "Readme" file.
+ * #L%
+ */
+
+import de.gematik.demis.bulk.inbound.purger.config.PurgerConfigProps;
+import de.gematik.demis.bulk.inbound.purger.service.PurgeProcessor;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.util.StopWatch;
+
+@SpringBootApplication
+@RequiredArgsConstructor
+@EnableConfigurationProperties(PurgerConfigProps.class)
+@Slf4j
+public class PurgerApplication implements CommandLineRunner {
+
+  private final PurgeProcessor purgeProcessor;
+
+  public static void main(String[] args) {
+    SpringApplication.run(PurgerApplication.class, args);
+  }
+
+  @Override
+  public void run(final String... args) {
+    final var stopWatch = new StopWatch();
+    stopWatch.start();
+    try {
+      purgeProcessor.purgeDatabase();
+    } finally {
+      stopWatch.stop();
+      log.info("Execution Duration: {} sec", Math.floor(stopWatch.getTotalTimeSeconds()));
+    }
+  }
+}
