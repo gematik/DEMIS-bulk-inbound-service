@@ -92,3 +92,35 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{/*
+Environment Variables
+*/}}
+{{- define "bulk-inbound-service.env" -}}
+{{- $envs := dict -}}
+{{- if or .Values.secret .Values.rabbitmqSecret }}
+{{- $envs = set $envs "SPRING_CONFIG_IMPORT" "configtree:/secrets/*/" }}
+{{- end }}
+{{- if .Values.customEnvVars -}}
+{{- range $key, $value := .Values.customEnvVars -}}
+{{- if not (kindIs "invalid" $value) -}}
+{{- $envs = set $envs $key $value }}
+{{- end -}}
+{{- end -}}
+{{- end -}}
+{{- if .Values.debug.enable -}}
+{{- $toolOptions := printf "%s %s" (get $envs "JAVA_TOOL_OPTIONS") .Values.debug.params | trim -}}
+{{- $envs = set $envs "JAVA_TOOL_OPTIONS" $toolOptions -}}
+{{- end -}}
+{{- range $i, $key := keys $envs | sortAlpha -}}
+{{- if $i }}
+{{ end -}}
+{{- $v := get $envs $key -}}
+- name: {{ $key | quote }}
+{{- if kindIs "string" $v }}
+  value: {{ tpl $v $ | quote }}
+{{- else }}
+  value: {{ $v | quote }}
+{{- end }}
+{{- end -}}
+{{- end -}}
