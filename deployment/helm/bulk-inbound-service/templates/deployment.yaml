@@ -2,7 +2,6 @@
 {{- $dockerRepository := .Values.required.image.repository | required ".Values.required.image.repository is required." -}}
 {{- $dockerImage := .Values.required.image.name | required ".Values.required.image.name is required." -}}
 {{- $dockerTag := .Values.required.image.tag | default .Chart.AppVersion -}}
-{{- $customEnvVars := .Values.customEnvVars -}}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -79,6 +78,14 @@ spec:
               - key: {{ .Values.secret.encryptionPrevious.key }}
                 path: {{ .Values.secret.encryptionPrevious.propPath }}
         {{- end }}
+        {{- if .Values.rabbitmqSecret.password }}
+        - name: rabbitmq-secret-volume
+          secret:
+            secretName: {{ .Values.rabbitmqSecret.password.name }}
+            items:
+              - key: {{ .Values.rabbitmqSecret.password.key }}
+                path: {{ .Values.rabbitmqSecret.password.propPath }}
+        {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -99,30 +106,9 @@ spec:
           {{- end }}
           {{- end }}
           {{- end }}
-          # Inject RabbitMQ credentials (username, password, virtual-host) from secret
-          envFrom:
-            - secretRef:
-                name: {{ .Values.rabbitmqSecret.name }}
           # Set the Environment Variables for the container
           env:
-            - name: "TZ"
-              value: "Europe/Berlin"
-            {{- if .Values.debug.enable }}
-            - name: "JAVA_TOOL_OPTIONS"
-              value: "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:9000"
-            {{- end }}
-            {{- if $customEnvVars }}
-            # Custom Environment Variables
-            {{- range $_, $key := keys $customEnvVars | sortAlpha }}
-            - name: {{ $key | quote }}
-              value: {{ get $customEnvVars $key | quote }}
-            {{- end }}
-            {{- end }}
-            {{- if .Values.secret }}
-            # Set Spring Configuration Import from Folder Structure
-            - name: "SPRING_CONFIG_IMPORT"
-              value: "configtree:/secrets/*/"
-            {{- end }}
+            {{- include "bulk-inbound-service.env" . | nindent 12 }}
           # Mount Volumes in container
           volumeMounts:
             - name: tmp-volume
@@ -150,6 +136,11 @@ spec:
             - name: encryption-secret-volume
               readOnly: true
               mountPath: "/secrets/encryption"
+          {{- end }}
+          {{- if .Values.rabbitmqSecret.password }}
+            - name: rabbitmq-secret-volume
+              readOnly: true
+              mountPath: "/secrets/rabbitmq"
           {{- end }}
           # Ports to be exposed from the container
           ports:
@@ -190,20 +181,15 @@ spec:
       nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      affinity:
-        podAntiAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-          - labelSelector:
-              matchExpressions:
-              - key: app
-                operator: In
-                values:
-                - {{ include "bulk-inbound-service.name" . }}
-              - key: version
-                operator: In
-                values:
-                - {{ .Chart.AppVersion | quote }}
-            topologyKey: "kubernetes.io/hostname"
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels:
+              app.kubernetes.io/instance: {{ .Release.Name }}
+          matchLabelKeys:
+            - pod-template-hash
       {{- with .Values.tolerations }}
       tolerations:
         {{- toYaml . | nindent 8 }}

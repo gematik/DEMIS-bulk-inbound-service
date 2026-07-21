@@ -149,8 +149,8 @@ This project includes:
   LatencyUtils under Public Domain, per Creative Commons CC0
   Liquibase under FSL-1.1-ALv2
   Log4j API to SLF4J Adapter under Apache-2.0
-  Logback Classic Module under Eclipse Public License - v 2.0 or GNU Lesser General Public License
-  Logback Core Module under Eclipse Public License - v 2.0 or GNU Lesser General Public License
+  Logback Classic Module under EPL-2.0 or LGPL-2.1-only
+  Logback Core Module under EPL-2.0 or LGPL-2.1-only
   Logstash Logback Encoder under Apache License, Version 2.0 or MIT License
   Maven Artifact under Apache-2.0
   Maven Artifact Resolver API under Apache-2.0

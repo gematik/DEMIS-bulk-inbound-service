@@ -1,6 +1,12 @@
 <div style="text-align:right"><img src="https://raw.githubusercontent.com/gematik/gematik.github.io/master/Gematik_Logo_Flag_With_Background.png" width="250" height="47" alt="gematik GmbH Logo"/> <br/> </div> <br/>
 
 # Release notes
+## Release 1.1.0
+- updated MaxRamPercentage and RAM-Limits
+- updated jvm params and secret handling in helm charts
+- Replaced pod anti-affinity with topology spread constraints for pod distribution
+- fixed handling of falsy custom environment variables (false, 0) in helm chart
+
 ## Release 1.0.0
 - added automatic API doc generation
 - Updated base-image and updated from java 21 to java 25

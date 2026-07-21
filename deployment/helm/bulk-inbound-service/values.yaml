@@ -1,6 +1,7 @@
 # Default values for bulk-inbound-service.
 debug:
   enable: false
+  params: "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:9000"
 
 # Number of Pod Replicas desired
 replicaCount: 2
@@ -29,8 +30,8 @@ deploymentLabels: {}
 # Define custom Container Entrypoint and Arguments (e.g. JVM Tuning)
 # If not given, the Entrypoint defined in Dockerfile will be used
 application:
-  entrypoint: ["java"]
-  parameters: ["-XX:ActiveProcessorCount=2", "-XX:MaxRAMPercentage=80.0", "-XX:+TieredCompilation", "-XX:+UseG1GC", "-jar","/app.jar"]
+  entrypoint: []
+  parameters: []
 
 imagePullPolicy: IfNotPresent
 # Define Image Pull Secrets if using private registry
@@ -58,16 +59,23 @@ podAnnotations:
 
 # Environment Variables to be defined
 customEnvVars:
+  JAVA_TOOL_OPTIONS: "-XX:ActiveProcessorCount=2 -XX:MaxRAMPercentage=40.0 -XX:MaxMetaspaceSize=192m -XX:+UseG1GC"
+  TZ: "Europe/Berlin"
   DB_URL: "jdbc:postgresql://pgbouncer.demis.svc.cluster.local:5432/demis-bulk"
   DB_USER: ars-bulk-user
   LIQUIBASE_DB_USER: ars-bulk-ddl
   PARAM_LIQUIBASE_DB_USER_PURGER: ars-bulk-purger
   SPRING_LIQUIBASE_ENABLED: false
+  SPRING_RABBITMQ_USERNAME: svc-bulk-inbound-service
+  SPRING_RABBITMQ_VIRTUAL_HOST: bulk
 
 # RabbitMQ credentials secret (injected via envFrom)
 # Secret must contain keys: SPRING_RABBITMQ_USERNAME, SPRING_RABBITMQ_PASSWORD, SPRING_RABBITMQ_VIRTUAL_HOST
 rabbitmqSecret:
-  name: bis-rabbitmq-credentials
+  password:
+    name: bis-rabbitmq-credentials
+    key: SPRING_RABBITMQ_PASSWORD
+    propPath: spring/rabbitmq/password
 
 secret:
   dbPwdUser:
@@ -136,10 +144,10 @@ service:
 # Default Resources
 resources: 
   limits:
-    memory: "500Mi"
+    memory: "650Mi"
   requests:
     cpu: "200m"
-    memory: "500Mi"
+    memory: "650Mi"
 
 autoscaling:
   enabled: false
