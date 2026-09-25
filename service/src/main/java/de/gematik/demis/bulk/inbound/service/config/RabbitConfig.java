@@ -27,6 +27,8 @@ package de.gematik.demis.bulk.inbound.service.config;
  * #L%
  */
 
+import static org.apache.commons.lang3.exception.ExceptionUtils.getRootCauseMessage;
+
 import de.gematik.demis.bulk.inbound.service.exception.RetryableException;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
@@ -87,6 +89,9 @@ public class RabbitConfig {
           || throwable.getCause() instanceof RetryableException) {
         throw new ImmediateRequeueAmqpException(throwable);
       } else {
+        log.error(
+            "Attention: A message from the incoming queue was rejected. This should not happen. Please investigate the cause. Note: The assigned batch will never finish. Error Message: {}",
+            getRootCauseMessage(throwable));
         throw new AmqpRejectAndDontRequeueException(throwable);
       }
     };

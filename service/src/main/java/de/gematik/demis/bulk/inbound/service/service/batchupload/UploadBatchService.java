@@ -116,6 +116,12 @@ public class UploadBatchService {
           ErrorCode.MISSING_DOCUMENT_IDS.getCode(),
           "No document IDs were provided in the request header.");
     }
+    if (documentIdsList.stream().anyMatch(String::isBlank)) {
+      throw new ServiceException(
+          HttpStatus.BAD_REQUEST,
+          ErrorCode.EMPTY_DOCUMENT_ID.getCode(),
+          "Every DocumentId within the header's list string must not be empty.");
+    }
     if (documentIdsList.size() != documentIdsList.stream().distinct().count()) {
       throw new ServiceException(
           HttpStatus.BAD_REQUEST,
@@ -139,7 +145,7 @@ public class UploadBatchService {
           continue;
         }
         checkIdPresentForNotification(documentIdsList, count);
-        final String documentId = documentIdsList.get(count);
+        final String documentId = documentIdsList.get(count).trim();
         ++count;
         final byte[] encryptedMessage = encryptionService.encryptData(notification);
         final byte[] encryptedAuthorization = encryptionService.encryptData(authorization);

@@ -7,6 +7,7 @@ spring:
   config:
     import: classpath:/base-config-application.yaml
   rabbitmq:
+    dynamic: false
     publisher-confirm-type: correlated
     publisher-returns: true
     host: ${SPRING_RABBITMQ_HOST:localhost}
@@ -14,11 +15,14 @@ spring:
     username: ${SPRING_RABBITMQ_USERNAME:rabbit_user}
     password: ${SPRING_RABBITMQ_PASSWORD:rabbit_password}
     virtual-host: ${SPRING_RABBITMQ_VIRTUAL_HOST:bulk}
+    requested-heartbeat: 60s # Helps detecting lost connections. If not set, lost connections might not be detected promptly.
+    connection-timeout: 15s # Only effects the heartbeat
 
     listener:
       simple:
         concurrency: 5
         prefetch: 1
+        missing-queues-fatal: false # prevents crash for heartbeat missing queues
         retry:
           enabled: true
           stateless: true

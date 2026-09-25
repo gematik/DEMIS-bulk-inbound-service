@@ -105,7 +105,7 @@ import org.testcontainers.rabbitmq.RabbitMQContainer;
 class BatchUploadSystemTest extends TestWithPostgresContainer {
 
   public static final String EXTERNAL_SERVER_URL = "https://ingress.local/";
-
+  public static final int NUMBER_OF_MESSAGES = 3;
   private static final String ENDPOINT = "/batch/fhir/bundle";
   private static final String ENDPOINT_CLOSE = ENDPOINT + "/{id}/$close";
   private static final String ENDPOINT_STATISTICS = ENDPOINT + "/{id}/$statistics";
@@ -113,8 +113,6 @@ class BatchUploadSystemTest extends TestWithPostgresContainer {
 
   @ServiceConnection @Container
   private static final RabbitMQContainer RABBIT_MQ_CONTAINER = TestContainer.RABBIT_MQ_CONTAINER;
-
-  public static final int NUMBER_OF_MESSAGES = 3;
 
   @LocalServerPort private int port;
 
@@ -176,6 +174,28 @@ class BatchUploadSystemTest extends TestWithPostgresContainer {
           () -> assertThat(authorization).isEqualTo(AUTHORIZATION),
           () -> assertThat(Integer.parseInt(docId)).isBetween(0, amount - 1));
     }
+  }
+
+  @ParameterizedTest
+  @ValueSource(
+      strings = {
+        // Empty docId list
+        "",
+        // Empty docId within the list
+        "A1,",
+        // Same DocId twice
+        "A1,A1",
+      })
+  void invalidDocumentIdHeader_Should_ReturnBadRequest(final String docIds) {
+    final BatchData batchData = startBatch();
+    final List<String> notifications = generateNotificationDataDump(2);
+    final String payload = String.join("\n", notifications);
+    final HttpEntity<String> request = new HttpEntity<>(payload, allUploadHeaders(docIds));
+
+    final ResponseEntity<Void> response =
+        restTemplate.postForEntity(batchData.uploadUrl(), request, Void.class, batchData.batchId());
+
+    assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
   }
 
   @Test

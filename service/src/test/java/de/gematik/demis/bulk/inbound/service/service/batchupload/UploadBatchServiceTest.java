@@ -54,6 +54,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -80,7 +81,6 @@ import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
@@ -106,7 +106,7 @@ class UploadBatchServiceTest {
   @BeforeEach
   @SneakyThrows
   void setUp() {
-    encryptionService = Mockito.spy(new AESEncryptionService(AES_SECRET.getBytes()));
+    encryptionService = spy(new AESEncryptionService(AES_SECRET.getBytes()));
     underTest =
         new UploadBatchService(
             encryptionService, rabbitTemplate, requestHeadersAccessor, batchRepository);
@@ -411,7 +411,21 @@ class UploadBatchServiceTest {
             ServiceException.class,
             () -> underTest.processBatch(BATCH_ID, FAKE_BEARER_TOKEN, ids, notifications));
     assertThat(exception).isInstanceOf(ServiceException.class);
+    assertThat(exception.getErrorCode())
+        .isEqualTo(ErrorCode.INCONSISTENT_AMOUNT_OF_IDS_TO_NOTIFICATION.getCode());
     assertThat(exception.getMessage()).isEqualTo(format(TOO_FEW_DOC_IDS_ERROR_MSG, value1));
+  }
+
+  @ParameterizedTest
+  @ValueSource(strings = {"some-id,", ",some-id", ",,"})
+  void shouldThrowExceptionIfAtLeastOneDocumentIdIsEmpty(final String ids) {
+    final BufferedReader notifications = generateNotificationDataDumpReader(ids.split(",").length);
+    ServiceException exception =
+        assertThrows(
+            ServiceException.class,
+            () -> underTest.processBatch(BATCH_ID, FAKE_BEARER_TOKEN, ids, notifications));
+    assertThat(exception).isInstanceOf(ServiceException.class);
+    assertThat(exception.getErrorCode()).isEqualTo(ErrorCode.EMPTY_DOCUMENT_ID.getCode());
   }
 
   @SneakyThrows

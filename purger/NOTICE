@@ -31,6 +31,7 @@ This project includes:
   bulk-inbound-purger under Licensed under the EUPL 1.2
   Byte Buddy (without dependencies) under Apache License, Version 2.0
   Byte Buddy agent under Apache License, Version 2.0
+  Checker Qual under The MIT License
   ClassMate under Apache License, Version 2.0
   docker-java-api under The Apache Software License, Version 2.0
   docker-java-transport under The Apache Software License, Version 2.0
