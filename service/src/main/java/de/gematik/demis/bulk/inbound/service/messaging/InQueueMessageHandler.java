@@ -66,13 +66,12 @@ public class InQueueMessageHandler {
   public void processInQueueMessage(final Message message) {
     // first read all required properties
     final MessageProperties messageProperties = message.getMessageProperties();
-    final String messageId = messageProperties.getHeader(HEADER_MESSAGE_ID).toString();
-    final String batchId = messageProperties.getHeader(HEADER_BATCH_ID).toString();
-    final String documentId = messageProperties.getHeader(HEADER_DOCUMENT_ID).toString();
+    final String messageId = getRequiredStringHeader(messageProperties, HEADER_MESSAGE_ID);
+    final String batchId = getRequiredStringHeader(messageProperties, HEADER_BATCH_ID);
+    final String documentId = getRequiredStringHeader(messageProperties, HEADER_DOCUMENT_ID);
     final String fhirPackageVersion =
-        message.getMessageProperties().getHeader(HEADER_FHIR_PACKAGE_VERSION).toString();
-    final String fhirPackage =
-        message.getMessageProperties().getHeader(HEADER_FHIR_PACKAGE).toString();
+        getRequiredStringHeader(messageProperties, HEADER_FHIR_PACKAGE_VERSION);
+    final String fhirPackage = getRequiredStringHeader(messageProperties, HEADER_FHIR_PACKAGE);
     final byte[] encryptedAuthorization = messageProperties.getHeader(HEADER_AUTHORIZATION);
 
     final String authorization;
@@ -130,19 +129,26 @@ public class InQueueMessageHandler {
     }
   }
 
+  private String getRequiredStringHeader(
+      final MessageProperties messageProperties, final String headerKey) {
+    final Object value = messageProperties.getHeader(headerKey);
+    if (value == null) {
+      throw new IllegalStateException("Required header " + headerKey + " is missing");
+    }
+    final String s = value.toString();
+    if (s.isBlank()) {
+      throw new IllegalStateException("Required header " + headerKey + " is blank");
+    }
+    return s;
+  }
+
   private void sendErrorMessage(
       final ErrorType type, final String batchId, final String documentId, final String messageId) {
     final String messagePayload = "{\"error\":\"" + type.name() + "\"}";
+    final int status;
     try (final Response errorResp =
         wafServiceClient.sendErrorToWaf(messagePayload, batchId, documentId, messageId)) {
-      if (isFailed(errorResp.status())) {
-        log.error(
-            "BatchId={}, DocumentId={} -> Retryable error: sending error message failed. HttpResponse={}",
-            batchId,
-            documentId,
-            errorResp);
-        throw new RetryableException();
-      }
+      status = errorResp.status();
     } catch (final RuntimeException ex) {
       log.error(
           "BatchId={}, DocumentId={} -> Retryable error: sending error message failed. Cause={}",
@@ -150,6 +156,17 @@ public class InQueueMessageHandler {
           documentId,
           ex.getMessage());
       throw new RetryableException(ex);
+    }
+
+    if (isFailed(status)) {
+      final boolean retryable = status != 400;
+      log.error(
+          "BatchId={}, DocumentId={} -> Retryable error= {}. sending error message failed. HttpResponseStatus={}",
+          batchId,
+          documentId,
+          retryable,
+          status);
+      throw retryable ? new RetryableException() : new IllegalArgumentException("bad request");
     }
   }
 

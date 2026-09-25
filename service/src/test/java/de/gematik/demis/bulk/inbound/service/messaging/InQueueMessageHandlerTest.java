@@ -42,6 +42,7 @@ import static de.gematik.demis.bulk.inbound.service.messaging.messages.MessageHe
 import static de.gematik.demis.bulk.inbound.service.messaging.messages.MessageHeaderConstants.HEADER_MESSAGE_ID;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
@@ -57,7 +58,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageBuilder;
@@ -71,12 +71,12 @@ class InQueueMessageHandlerTest {
   private static final String AES_SECRET = "0123456789abcdef";
 
   @Mock WafServiceClient wafServiceClient;
-  private AESEncryptionService encryptionService;
   InQueueMessageHandler underTest;
+  private AESEncryptionService encryptionService;
 
   @BeforeEach
   void init() {
-    encryptionService = Mockito.spy(new AESEncryptionService(AES_SECRET.getBytes()));
+    encryptionService = spy(new AESEncryptionService(AES_SECRET.getBytes()));
     underTest = new InQueueMessageHandler(wafServiceClient, encryptionService);
   }
 
@@ -111,14 +111,30 @@ class InQueueMessageHandlerTest {
         .sendErrorToWaf("{\"error\":\"WAF\"}", BATCH_ID, DOCUMENT_ID, MESSAGE_ID);
   }
 
-  @Test
-  void sendNotificationToWaf_wafError_errorMessage_500Response_should_throwRetryableException() {
+  @ParameterizedTest
+  @ValueSource(ints = {403, 500})
+  void sendNotificationToWaf_wafError_errorMessage_ErrorResponse_should_throwRetryableException(
+      final int errorStatus) {
     when(wafServiceClient.sendNotificationToWaf(any(), any(), any(), any(), any(), any(), any()))
         .thenReturn(response(403));
-    when(wafServiceClient.sendErrorToWaf(any(), any(), any(), any())).thenReturn(response(500));
+    when(wafServiceClient.sendErrorToWaf(any(), any(), any(), any()))
+        .thenReturn(response(errorStatus));
 
-    assertThatThrownBy(() -> underTest.processInQueueMessage(validMessage()))
+    final Message message = validMessage();
+    assertThatThrownBy(() -> underTest.processInQueueMessage(message))
         .isInstanceOf(RetryableException.class);
+  }
+
+  @Test
+  void
+      sendNotificationToWaf_wafError_errorMessage_400Response_should_throwException_ButNotRetryable() {
+    when(wafServiceClient.sendNotificationToWaf(any(), any(), any(), any(), any(), any(), any()))
+        .thenReturn(response(403));
+    when(wafServiceClient.sendErrorToWaf(any(), any(), any(), any())).thenReturn(response(400));
+
+    final Message message = validMessage();
+    assertThatThrownBy(() -> underTest.processInQueueMessage(message))
+        .isNotInstanceOf(RetryableException.class);
   }
 
   @Test
@@ -129,7 +145,8 @@ class InQueueMessageHandlerTest {
     when(wafServiceClient.sendErrorToWaf(any(), any(), any(), any()))
         .thenThrow(new RuntimeException("connection timeout"));
 
-    assertThatThrownBy(() -> underTest.processInQueueMessage(validMessage()))
+    final Message message = validMessage();
+    assertThatThrownBy(() -> underTest.processInQueueMessage(message))
         .isInstanceOf(RetryableException.class);
   }
 
@@ -138,7 +155,8 @@ class InQueueMessageHandlerTest {
     when(wafServiceClient.sendNotificationToWaf(any(), any(), any(), any(), any(), any(), any()))
         .thenReturn(response(500));
 
-    assertThatThrownBy(() -> underTest.processInQueueMessage(validMessage()))
+    final Message message = validMessage();
+    assertThatThrownBy(() -> underTest.processInQueueMessage(message))
         .isInstanceOf(RetryableException.class);
   }
 
@@ -147,7 +165,8 @@ class InQueueMessageHandlerTest {
     when(wafServiceClient.sendNotificationToWaf(any(), any(), any(), any(), any(), any(), any()))
         .thenThrow(new RuntimeException("connection timeout"));
 
-    assertThatThrownBy(() -> underTest.processInQueueMessage(validMessage()))
+    final Message message = validMessage();
+    assertThatThrownBy(() -> underTest.processInQueueMessage(message))
         .isInstanceOf(RetryableException.class);
   }
 
@@ -157,7 +176,24 @@ class InQueueMessageHandlerTest {
     invalidMessage.getMessageProperties().getHeaders().remove(HEADER_FHIR_PACKAGE);
 
     assertThatThrownBy(() -> underTest.processInQueueMessage(invalidMessage))
-        .isNotInstanceOf(RetryableException.class);
+        .isNotInstanceOf(RetryableException.class)
+        .isInstanceOf(IllegalStateException.class)
+        .hasMessageContaining(HEADER_FHIR_PACKAGE)
+        .hasMessageContaining("missing");
+
+    verifyNoInteractions(wafServiceClient);
+  }
+
+  @Test
+  void emptyRequiredHeader_should_throwException_ButNotRetryable() {
+    final Message invalidMessage = validMessage();
+    invalidMessage.getMessageProperties().getHeaders().replace(HEADER_DOCUMENT_ID, "");
+
+    assertThatThrownBy(() -> underTest.processInQueueMessage(invalidMessage))
+        .isNotInstanceOf(RetryableException.class)
+        .isInstanceOf(IllegalStateException.class)
+        .hasMessageContaining(HEADER_DOCUMENT_ID)
+        .hasMessageContaining("blank");
 
     verifyNoInteractions(wafServiceClient);
   }

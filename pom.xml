@@ -4,16 +4,16 @@
   <parent>
     <groupId>de.gematik.demis</groupId>
     <artifactId>spring-parent</artifactId>
-    <version>4.0.6</version>
+    <version>4.1.12</version>
     <relativePath></relativePath><!-- lookup parent from repository -->
   </parent>
   <artifactId>bulk-inbound</artifactId>
-  <version>1.1.0-SNAPSHOT</version>
+  <version>1.1.1-SNAPSHOT</version>
   <name>bulk-inbound</name>
   <packaging>pom</packaging>
   <description>service-description</description>
   <properties>
-    <spring-parent.version>4.0.5</spring-parent.version>
+    <spring-parent.version>4.1.12</spring-parent.version>
     <openapi-generator.inputSpec>${project.build.directory}/spec/api-spec.yaml</openapi-generator.inputSpec>
   </properties>
   <licenses>
@@ -33,6 +33,20 @@
         <groupId>de.gematik.demis</groupId>
         <artifactId>bulk-inbound-db-schema</artifactId>
         <version>${project.version}</version>
+      </dependency>
+      <!-- spring-parent pins okio-jvm to 3.9.1, which lacks the
+           Okio.socket(Socket) API that okhttp-jvm 5.3.2 (pulled in via
+           opentelemetry-exporter-sender-okhttp) requires at connection time. -->
+      <dependency>
+        <groupId>com.squareup.okio</groupId>
+        <artifactId>okio-jvm</artifactId>
+        <version>3.18.2</version>
+      </dependency>
+      <dependency>
+        <!-- explicitly declared due to CVE-2026-63337, CVE-2026-69219, CVE-2026-69220, remove when upgrading spring-boot-starter-amqp -->
+        <groupId>com.rabbitmq</groupId>
+        <artifactId>amqp-client</artifactId>
+        <version>5.36.0</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

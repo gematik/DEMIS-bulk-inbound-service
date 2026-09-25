@@ -1,5 +1,8 @@
 spring:
   rabbitmq:
+    # In production 'dynamic' is false (minimal RabbitMQ permissions).
+    # Tests rely on RabbitAdmin to auto-declare the queue/exchange/binding
+    dynamic: true
     listener:
       simple:
         retry:

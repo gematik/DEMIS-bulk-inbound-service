@@ -28,7 +28,6 @@ This project includes:
   Apache HttpClient under Apache License, Version 2.0
   Apache HttpComponents Core HTTP/1.1 under Apache License, Version 2.0
   Apache HttpComponents Core HTTP/2 under Apache License, Version 2.0
-  Apache HttpCore under Apache License, Version 2.0
   Apache Jena - ARQ under The Apache Software License, Version 2.0
   Apache Jena - Base under The Apache Software License, Version 2.0
   Apache Jena - Core under The Apache Software License, Version 2.0
@@ -78,8 +77,8 @@ This project includes:
   docker-java-transport under The Apache Software License, Version 2.0
   docker-java-transport-zerodep under The Apache Software License, Version 2.0
   Duct Tape under MIT
-  EE10 :: Servlet under Eclipse Public License - Version 2.0 or Apache Software License - Version 2.0
-  EE10 :: Utility Servlets and Filters under Eclipse Public License - Version 2.0 or Apache Software License - Version 2.0
+  EE10 :: Servlet under EPL-2.0 or Apache-2.0
+  EE10 :: Utility Servlets and Filters under EPL-2.0 or Apache-2.0
   EE10 :: WebApp under EPL-2.0 or Apache-2.0
   error-prone annotations under Apache 2.0
   Feign Core under The Apache Software License, Version 2.0
@@ -125,7 +124,6 @@ This project includes:
   Jakarta XML Binding API under Eclipse Distribution License - v 1.0
   jakarta.transaction API under EPL 2.0 or GPL2 w/ CPE
   Java Native Access under LGPL-2.1-or-later or Apache-2.0
-  javax.inject under The Apache Software License, Version 2.0
   JAXB Core under Eclipse Distribution License - v 1.0
   JAXB Runtime under Eclipse Distribution License - v 1.0
   JBoss Logging 3 under Apache License 2.0
@@ -148,25 +146,11 @@ This project includes:
   JUnit Platform Commons under Eclipse Public License v2.0
   JUnit Platform Engine API under Eclipse Public License v2.0
   Kotlin Stdlib under Apache-2.0
-  LatencyUtils under Public Domain, per Creative Commons CC0
   Liquibase under FSL-1.1-ALv2
   Log4j API to SLF4J Adapter under Apache-2.0
   Logback Classic Module under EPL-2.0 or LGPL-2.1-only
   Logback Core Module under EPL-2.0 or LGPL-2.1-only
   Logstash Logback Encoder under Apache License, Version 2.0 or MIT License
-  Maven Artifact under Apache-2.0
-  Maven Artifact Resolver API under Apache-2.0
-  Maven Artifact Resolver Connector Basic under Apache-2.0
-  Maven Artifact Resolver Implementation under Apache-2.0
-  Maven Artifact Resolver Named Locks under Apache-2.0
-  Maven Artifact Resolver Provider under Apache-2.0
-  Maven Artifact Resolver SPI under Apache-2.0
-  Maven Artifact Resolver Transport HTTP under Apache-2.0
-  Maven Artifact Resolver Utilities under Apache-2.0
-  Maven Builder Support under Apache-2.0
-  Maven Model under Apache-2.0
-  Maven Model Builder under Apache-2.0
-  Maven Repository Metadata Model under Apache-2.0
   micrometer-commons under The Apache Software License, Version 2.0
   micrometer-core under The Apache Software License, Version 2.0
   micrometer-jakarta9 under The Apache Software License, Version 2.0
@@ -196,14 +180,11 @@ This project includes:
   OpenTelemetry Java under The Apache License, Version 2.0
   OpenTelemetry Semantic Conventions Java under The Apache License, Version 2.0
   org.apiguardian:apiguardian-api under The Apache License, Version 2.0
-  org.eclipse.sisu:org.eclipse.sisu.inject under Eclipse Public License, Version 2.0
   org.opentest4j:opentest4j under The Apache License, Version 2.0
   org.roaringbitmap:RoaringBitmap under Apache 2
   org.xmlunit:xmlunit-core under The Apache Software License, Version 2.0
   org.xmlunit:xmlunit-legacy under The BSD 3-Clause License
   org.xmlunit:xmlunit-placeholders under The Apache Software License, Version 2.0
-  Plexus Common Utilities under Apache License, Version 2.0
-  Plexus Interpolation API under Apache-2.0
   PostgreSQL JDBC Driver under BSD-2-Clause
   Project Lombok under The MIT License
   Prometheus Metrics Config under The Apache Software License, Version 2.0
@@ -300,9 +281,7 @@ This project includes:
   spring-boot-web-server under Apache License, Version 2.0
   spring-boot-webmvc under Apache License, Version 2.0
   spring-boot-webmvc-test under Apache License, Version 2.0
-  spring-cloud-contract-wiremock under Apache License, Version 2.0
   spring-cloud-starter under Apache License, Version 2.0
-  spring-cloud-test-support under Apache License, Version 2.0
   spring-parent under EUPL-1.2
   spring-security-crypto under Apache License, Version 2.0
   springdoc-openapi-starter-common under The Apache License, Version 2.0

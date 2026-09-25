@@ -1,40 +1,30 @@
 vulnerabilities:
   - id: CVE-2026-40200
-    expired_at: 2026-08-01
-    statement: musl, we do not sort arrays with that amount of data and its only 32-bit applicable
-  - id: CVE-2026-33180
-    expired_at: 2026-08-01
-    statement: HAPI Fhir Update needed
+    statement: Not Affected. musl. We don't accept EUC-KR encoded data in our services.
   - id: CVE-2026-34359
-    expired_at: 2026-08-01
-    statement: HAPI Fhir Update needed
-  - id: CVE-2026-42198
-    statement: Not affected. We don't use the authentication method.
+    expired_at: 2026-10-01
+    statement: Not Affected. We don't use the HAPI Server.
+  - id: CVE-2026-33180
+    expired_at: 2026-10-01
+    statement: Not Affected. We don't use the HAPI Server.
   - id: CVE-2026-45367
-    expired_at: 2026-08-01
-    statement: HAPI Fhir Update needed
+    expired_at: 2026-10-01
+    statement: Not Affected. We don't us FHIR Path in this service.
+  - id: CVE-2026-49485
+    expired_at: 2026-10-01
+    statement: Not Affected - We don't call the affected functionality.
   - id: CVE-2026-43869
-    expired_at: 2026-08-01
-    statement: libthrift update needed
-  - id: CVE-2026-44249
-    expired_at: 2026-08-01
-    statement: netty. We don't use a IPv6 subnet filter rules inside the services.
-  - id: CVE-2026-45416
-    expired_at: 2026-08-01
-    statement: netty-handler. Not affected
-  - id: CVE-2026-45447
-    statement: Not Affected. Base-Image CVE. We don't process PKCS#7 or S/MIME signed messages.
-  - id: CVE-2026-2673
-    statement: TLS wird auf Infrastrukturebene behandelt, nicht direkt in den Services
+    expired_at: 2026-10-01
+    statement: Not Affected. Only the Apache Thirst Server is affected.
   - id: CVE-2026-55471
+    expired_at: 2026-10-01
     statement: transform operations from XSL utilities are not used.
-  - id: CVE-2026-2100
-    expired_at: 2026-08-01
-    statement: Not Affected. We don't use PKCS#11.
-  - id: CVE-2026-9795
-    statement: We have no distinguished admin roles, just one. Thus admin permissions are not limited and cannot be elevated
-  - id: CVE-2025-14813
-    statement: 'There is no way for an attacker to retrieve valid traffic using the affected ciphers, because they are neither exposed by our TLS configuration nor are they used with tokens or local encryption. '
+  - id: CVE-2026-14456
+    expired_at: 2026-10-01
+    statement: Not affected. We don't use QUIC as protocol.
+  - id: CVE-2026-43871
+    expired_at: 2026-10-01
+    statement: DoS vulnerability (Infinite Loop) in Apache Thrift. Not Affected because not used in this service. fixable with futute hapi update
 misconfigurations:
   - id: KSV011
     statement: Runs with UID <= 10000 - User is 10000 in Dockerfile too

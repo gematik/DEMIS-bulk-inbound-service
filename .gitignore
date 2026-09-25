@@ -37,3 +37,5 @@ build/
 
 # SBOM
 **/sbom_docker_image*/
+renovate.json
+
