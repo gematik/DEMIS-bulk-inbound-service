@@ -228,36 +228,8 @@ class BatchManagementControllerIntegrationTest {
             header().string(HttpHeaders.RETRY_AFTER, "30"));
   }
 
-  @ParameterizedTest
-  @ValueSource(
-      strings = {
-        "application/fhir+ndjson",
-        "application/ndjson",
-        "application/x-ndjson",
-        "application/fhir+xml",
-        "application/xml+fhir",
-        "application/xml",
-        "text/plain",
-        ""
-      })
-  void invalidContentTypesForCloseBatch(final String contentType) throws Exception {
-    final String expectedResultContentType =
-        contentType.contains("xml") ? "application/fhir+xml" : "application/fhir+json";
-    final UUID batchId = UUID.randomUUID();
-    mockMvc
-        .perform(
-            post(BATCH_MANAGEMENT_PATH + "/" + batchId + "/$close")
-                .contentType(contentType)
-                .header(HEADER_X_SENDER, SENDER))
-        .andExpectAll(
-            status().isUnsupportedMediaType(),
-            content().contentTypeCompatibleWith(expectedResultContentType));
-  }
-
-  @ParameterizedTest
-  @ValueSource(
-      strings = {"application/fhir+json", "application/json+fhir", "application/json", "*/*", ""})
-  void validAcceptedForCloseBatch(final String accepted) throws Exception {
+  @Test
+  void noContentTypeAcceptedForCloseBatch() throws Exception {
     final UUID batchId = UUID.randomUUID();
 
     doNothing().when(batchManagementService).checkPermission(SENDER, batchId);
@@ -265,10 +237,7 @@ class BatchManagementControllerIntegrationTest {
 
     mockMvc
         .perform(
-            post(BATCH_MANAGEMENT_PATH + "/" + batchId + "/$close")
-                .contentType("application/fhir+json")
-                .accept(accepted)
-                .header(HEADER_X_SENDER, SENDER))
+            post(BATCH_MANAGEMENT_PATH + "/" + batchId + "/$close").header(HEADER_X_SENDER, SENDER))
         .andExpectAll(
             status().isAccepted(),
             header()
@@ -280,18 +249,24 @@ class BatchManagementControllerIntegrationTest {
 
   @ParameterizedTest
   @ValueSource(
-      strings = {"application/fhir+xml", "application/xml+fhir", "application/xml", "text/plain"})
-  void notAcceptedForCloseBatch(final String notAccepted) throws Exception {
-    final String expectedResultContentType =
-        notAccepted.contains("xml") ? "application/fhir+xml" : "application/fhir+json";
+      strings = {"application/fhir+json", "application/json+fhir", "application/json", "*/*", ""})
+  void anyContentTypeAcceptedForCloseBatch(final String contentType) throws Exception {
+    final UUID batchId = UUID.randomUUID();
+
+    doNothing().when(batchManagementService).checkPermission(SENDER, batchId);
+    doNothing().when(batchManagementService).closeBatch(batchId);
+
     mockMvc
         .perform(
-            post(ENDPOINT_CLOSE)
-                .contentType("application/fhir+json")
-                .accept(notAccepted)
+            post(BATCH_MANAGEMENT_PATH + "/" + batchId + "/$close")
+                .contentType(contentType)
                 .header(HEADER_X_SENDER, SENDER))
         .andExpectAll(
-            status().isNotAcceptable(),
-            content().contentTypeCompatibleWith(expectedResultContentType));
+            status().isAccepted(),
+            header()
+                .string(
+                    HttpHeaders.CONTENT_LOCATION,
+                    SERVER_URL + BATCH_MANAGEMENT_PATH + "/" + batchId + "/$statistics"),
+            header().string(HttpHeaders.RETRY_AFTER, "30"));
   }
 }

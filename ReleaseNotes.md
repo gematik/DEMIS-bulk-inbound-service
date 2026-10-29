@@ -1,6 +1,10 @@
 <div style="text-align:right"><img src="https://raw.githubusercontent.com/gematik/gematik.github.io/master/Gematik_Logo_Flag_With_Background.png" width="250" height="47" alt="gematik GmbH Logo"/> <br/> </div> <br/>
 
 # Release notes
+## Release 1.1.2
+- removed parameters consumers & producers from close batch endpoint, so content-type is no longer required in the header for closing
+- Updated minor/patch versions of dependencies
+
 ## Release 1.1.1
 - added vex documents
 - updated spring-parent to version 4.1.12

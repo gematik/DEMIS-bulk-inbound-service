@@ -2,29 +2,45 @@ vulnerabilities:
   - id: CVE-2026-40200
     statement: Not Affected. musl. We don't accept EUC-KR encoded data in our services.
   - id: CVE-2026-34359
-    expired_at: 2026-10-01
+    expired_at: 2027-02-01
     statement: Not Affected. We don't use the HAPI Server.
   - id: CVE-2026-33180
-    expired_at: 2026-10-01
+    expired_at: 2027-02-01
     statement: Not Affected. We don't use the HAPI Server.
   - id: CVE-2026-45367
-    expired_at: 2026-10-01
+    expired_at: 2027-02-01
     statement: Not Affected. We don't us FHIR Path in this service.
   - id: CVE-2026-49485
-    expired_at: 2026-10-01
+    expired_at: 2027-02-01
     statement: Not Affected - We don't call the affected functionality.
   - id: CVE-2026-43869
-    expired_at: 2026-10-01
+    expired_at: 2027-02-01
     statement: Not Affected. Only the Apache Thirst Server is affected.
   - id: CVE-2026-55471
-    expired_at: 2026-10-01
+    expired_at: 2027-02-01
     statement: transform operations from XSL utilities are not used.
   - id: CVE-2026-14456
     expired_at: 2026-10-01
     statement: Not affected. We don't use QUIC as protocol.
   - id: CVE-2026-43871
-    expired_at: 2026-10-01
+    expired_at: 2027-02-01
     statement: DoS vulnerability (Infinite Loop) in Apache Thrift. Not Affected because not used in this service. fixable with futute hapi update
+  - id: CVE-2026-89407
+    statement: We could be affected, however, currently it is mitigated by monitoring and the possibility of blocking attackers.
+    expired_at: 2026-12-01
+  - id: CVE-2026-68497
+    statement: We don't use the Jackson path, but rather the FHIR parser.
+    expired_at: 2027-02-01
+  - id: CVE-2026-89425
+    statement: We don't use the Jackson path, but rather the FHIR parser.
+    expired_at: 2027-02-01
+  - id: CVE-2026-91776
+    statement: We don't use the vulnerable object deserialization.
+    expired_at: 2027-02-01
+  - id: CVE-2026-91777
+    statement: We don't use the vulnerable object deserialization.
+    expired_at: 2027-02-01
+
 misconfigurations:
   - id: KSV011
     statement: Runs with UID <= 10000 - User is 10000 in Dockerfile too

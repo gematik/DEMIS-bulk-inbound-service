@@ -109,10 +109,7 @@ public interface BatchManagementApi {
       @RequestBody final String requestBody,
       final WebRequest webRequest);
 
-  @PostMapping(
-      value = "/{id}/$close",
-      consumes = {"application/fhir+json", "application/json+fhir", APPLICATION_JSON_VALUE},
-      produces = {"application/fhir+json", "application/json+fhir", APPLICATION_JSON_VALUE})
+  @PostMapping(value = "/{id}/$close")
   @Operation(
       operationId = "closeBatch",
       summary = "Close an existing batch",

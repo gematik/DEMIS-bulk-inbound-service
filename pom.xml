@@ -4,16 +4,16 @@
   <parent>
     <groupId>de.gematik.demis</groupId>
     <artifactId>spring-parent</artifactId>
-    <version>4.1.12</version>
+    <version>4.1.14</version>
     <relativePath></relativePath><!-- lookup parent from repository -->
   </parent>
   <artifactId>bulk-inbound</artifactId>
-  <version>1.1.1-SNAPSHOT</version>
+  <version>1.1.2-SNAPSHOT</version>
   <name>bulk-inbound</name>
   <packaging>pom</packaging>
   <description>service-description</description>
   <properties>
-    <spring-parent.version>4.1.12</spring-parent.version>
+    <spring-parent.version>4.1.14</spring-parent.version>
     <openapi-generator.inputSpec>${project.build.directory}/spec/api-spec.yaml</openapi-generator.inputSpec>
   </properties>
   <licenses>
@@ -46,7 +46,7 @@
         <!-- explicitly declared due to CVE-2026-63337, CVE-2026-69219, CVE-2026-69220, remove when upgrading spring-boot-starter-amqp -->
         <groupId>com.rabbitmq</groupId>
         <artifactId>amqp-client</artifactId>
-        <version>5.36.0</version>
+        <version>5.37.0</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
